@@ -1,0 +1,84 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-primary: #6366F1;
+    --color-secondary: #4F46E5;
+    --gradient-start: #6366F1;
+    --gradient-end: #4F46E5;
+  }
+
+  .dark {
+    --color-primary: #818CF8;
+    --color-secondary: #6366F1;
+    --gradient-start: #818CF8;
+    --gradient-end: #6366F1;
+  }
+}
+
+@layer components {
+  .glass-panel {
+    @apply bg-white/90 backdrop-blur-md dark:bg-gray-800/90 shadow-xl;
+  }
+  
+  .gradient-border {
+    position: relative;
+    border-radius: 1rem;
+    background: linear-gradient(135deg, var(--gradient-start), var(--gradient-end));
+    padding: 1px;
+  }
+
+  .gradient-border > * {
+    @apply bg-white dark:bg-gray-900 rounded-[0.95rem];
+  }
+
+  .animated-gradient {
+    background: linear-gradient(-45deg, var(--gradient-start), var(--gradient-end), #4338CA, #6366F1);
+    background-size: 400% 400%;
+    animation: gradient 15s ease infinite;
+  }
+
+  .stat-card {
+    @apply relative overflow-hidden rounded-xl p-6 glass-panel hover:shadow-2xl transition-all duration-300;
+  }
+
+  .stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(to right, var(--gradient-start), var(--gradient-end));
+  }
+
+  .nav-item {
+    @apply flex items-center gap-3 px-4 py-3 rounded-xl transition-all duration-200;
+  }
+
+  .nav-item.active {
+    @apply bg-gradient-to-r from-primary to-secondary text-white shadow-lg;
+  }
+
+  .nav-item:not(.active) {
+    @apply text-gray-300 hover:bg-white/10;
+  }
+
+  @keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+  }
+}
+
+.dashboard-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 1.5rem;
+}
+
+body {
+  @apply bg-gray-50 dark:bg-gray-900 text-gray-900 dark:text-gray-100;
+}
